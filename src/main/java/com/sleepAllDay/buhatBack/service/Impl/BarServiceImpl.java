@@ -26,8 +26,8 @@ public class BarServiceImpl implements BarService {
     }
 
     @Override
-    public void save(Bar bar) {
-        barRepository.save(bar);
+    public Bar save(Bar bar) {
+       return barRepository.save(bar);
     }
 
     @Override

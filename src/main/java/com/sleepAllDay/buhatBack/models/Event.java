@@ -37,6 +37,14 @@ public class Event {
     public Event() {
     }
 
+    public Event(String name, Bar bar, String address, String description, User creator) {
+        this.name = name;
+        this.bar = bar;
+        this.address = address;
+        this.description = description;
+        this.creator = creator;
+    }
+
     public Event(String name, Bar bar, String address, List<User> participant, String description, User creator) {
         this.name = name;
         this.bar = bar;
@@ -100,5 +108,13 @@ public class Event {
 
     public void setCreator(User creator) {
         this.creator = creator;
+    }
+
+    public void addParticipant(User user){
+        participant.add(user);
+    }
+
+    public void deleteParticipant(User user){
+        participant.remove(user);
     }
 }

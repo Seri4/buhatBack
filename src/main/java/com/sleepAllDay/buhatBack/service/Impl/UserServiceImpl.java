@@ -39,4 +39,18 @@ public class UserServiceImpl implements UserService {
     public void deleteById(Long id) {
         userRepository.deleteById(id);
     }
+
+    @Override
+    public void ratingIncrease(Long id, double value) {
+        User user = userRepository.findById(id).get();
+        user.setRate(user.getRate() + value);
+        userRepository.save(user);
+    }
+
+    @Override
+    public void ratingDecrease(Long id, double value) {
+        User user = userRepository.findById(id).get();
+        user.setRate(user.getRate()-value);
+        userRepository.save(user);
+    }
 }

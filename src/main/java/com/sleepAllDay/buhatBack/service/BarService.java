@@ -10,7 +10,7 @@ public interface BarService {
 
     Optional<Bar> findById(Long id);
 
-    void save(Bar bar);
+    Bar save(Bar bar);
 
     void save(Long id);
 

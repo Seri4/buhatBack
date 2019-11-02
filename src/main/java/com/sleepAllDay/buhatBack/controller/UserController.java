@@ -14,31 +14,47 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/users")
-    public List<User> getUsers(){
+    public List<User> getUsers() {
         return userService.findAll();
     }
 
     @GetMapping("/users/{id}")
-    public User getUserById(@PathVariable Long id){
+    public User getUserById(@PathVariable Long id) {
         return userService.findById(id).get();
     }
 
-    @PostMapping("/users/add")
-    public void addUser(@RequestBody User user){
+    @PostMapping("/users/add/{login}/{password}/{rate}")
+    public void addUser(@PathVariable String login, @PathVariable String password,
+                        @PathVariable double rate) {
+        userService.save(new User(login, password, rate));
+    }
+
+    @PutMapping("/users/update/{id}/{login}")
+    public void updateLogin(@PathVariable Long id, @PathVariable String login) {
+        User user = userService.findById(id).get();
+        user.setLogin(login);
         userService.save(user);
     }
 
-    @PutMapping("/users/update/{id}")
-    public void updateUser(@RequestBody User newUser, @PathVariable Long id){
+    @PutMapping("/user/update/{id}/{password}")
+    public void updatePassword(@PathVariable Long id, @PathVariable String password) {
         User user = userService.findById(id).get();
-        user.setLogin(newUser.getLogin());
-        user.setPassword(newUser.getPassword());
-        user.setRate(newUser.getRate());
+        user.setPassword(password);
         userService.save(user);
+    }
+
+    @PutMapping("/user/{id}/rating/increase/{value}")
+    public void ratingIncrease(@PathVariable Long id, @PathVariable double value) {
+        userService.ratingIncrease(id, value);
+    }
+
+    @PutMapping("/user/{id}/rating/decrease/{value}")
+    public void ratingDecrease(@PathVariable Long id, @PathVariable double value) {
+        userService.ratingDecrease(id, value);
     }
 
     @DeleteMapping("/users/delete/{id}")
-    public void deleteUser(@PathVariable Long id){
+    public void deleteUser(@PathVariable Long id) {
         userService.deleteById(id);
     }
 }

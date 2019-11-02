@@ -15,4 +15,8 @@ public interface UserService {
     void delete(User user);
 
     void deleteById(Long id);
+
+    void ratingIncrease(Long id, double value);
+
+    void ratingDecrease(Long id, double value);
 }
