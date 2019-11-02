@@ -24,9 +24,10 @@ public class BarController {
         return barService.findById(id);
     }
 
-    @DeleteMapping("/bars/delete/{id}")
-    public void deleteBar(@PathVariable Long id) {
-        barService.delete(id);
+    @GetMapping("/bars/delete/{id}")
+    public List<Bar> deleteBar(@PathVariable Long id) {
+        barService.deleteById(id);
+        return barService.findAll();
     }
 
     @PostMapping("/bars/add")

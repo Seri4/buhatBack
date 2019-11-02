@@ -41,7 +41,7 @@ public class BarServiceImpl implements BarService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void deleteById(Long id) {
         barRepository.deleteById(id);
     }
 }

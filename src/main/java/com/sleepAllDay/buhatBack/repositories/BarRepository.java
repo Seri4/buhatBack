@@ -11,7 +11,4 @@ public interface BarRepository extends JpaRepository<Bar, Long> {
     List<Bar> findAll();
 
     void deleteById(Long id);
-
-    Optional<Bar> findById(Long id);
-
 }

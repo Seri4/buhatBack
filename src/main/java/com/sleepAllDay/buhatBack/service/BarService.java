@@ -16,5 +16,5 @@ public interface BarService {
 
     void delete(Bar bar);
 
-    void delete(Long id);
+    void deleteById(Long id);
 }
