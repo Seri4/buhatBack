@@ -18,6 +18,11 @@ public class UserController {
         return userService.findAll();
     }
 
+    @GetMapping("/users/find/{login}")
+    public User getUserByLogin(@PathVariable String login){
+        return userService.findByLogin(login);
+    }
+
     @GetMapping("/users/{id}")
     public User getUserById(@PathVariable Long id) {
         return userService.findById(id).get();

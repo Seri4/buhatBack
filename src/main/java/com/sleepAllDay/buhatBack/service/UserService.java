@@ -10,6 +10,8 @@ public interface UserService {
 
     Optional<User> findById(Long id);
 
+    User findByLogin(String login);
+
     void save(User user);
 
     void delete(User user);
