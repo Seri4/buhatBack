@@ -33,13 +33,18 @@ public class EventController {
         return eventService.findById(id).get();
     }
 
-    @PostMapping("/events/add/{address}/{description}/{name}/{bar_id}/{creation_id}")
-    public void addEvent(@PathVariable String address, @PathVariable String description,
-                         @PathVariable String name, @PathVariable Long bar_id,
-                         @PathVariable Long creation_id) {
-        Bar bar = barService.findById(bar_id).get();
-        User creator = userService.findById(creation_id).get();
-        eventService.save(new Event(name, bar, address, description, creator));
+//    @PostMapping("/events/add/{address}/{description}/{name}/{bar_id}/{creation_id}")
+//    public void addEvent(@PathVariable String address, @PathVariable String description,
+//                         @PathVariable String name, @PathVariable Long bar_id,
+//                         @PathVariable Long creation_id) {
+//        Bar bar = barService.findById(bar_id).get();
+//        User creator = userService.findById(creation_id).get();
+//        eventService.save(new Event(name, bar, address, description, creator));
+//    }
+
+    @PostMapping("/events/add")
+    public void addEvent(@RequestBody Event event){
+        eventService.save(event);
     }
 
 
