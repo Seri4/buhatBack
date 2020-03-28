@@ -1,9 +1,16 @@
 package com.sleepAllDay.buhatBack.models;
 
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "bar")
+@Data
+@Builder
 public class Bar {
 
     @Id
@@ -22,53 +29,9 @@ public class Bar {
     @Column(name = "image_url")
     private String imageUrl;
 
+    @Column(name = "average_price")
+    private Double averagePrice;
+
     public Bar() {
-    }
-
-    public Bar(String name, String description, String address, String imageUrl) {
-        this.name = name;
-        this.description = description;
-        this.address = address;
-        this.imageUrl = imageUrl;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
     }
 }

@@ -1,20 +1,25 @@
 package com.sleepAllDay.buhatBack.service;
 
+import com.sleepAllDay.buhatBack.dto.UserDto;
 import com.sleepAllDay.buhatBack.models.User;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
-    List<User> findAll();
+    List<UserDto> findAll();
 
-    Optional<User> findById(Long id);
+    UserDto findById(Long id);
 
-    User findByLogin(String login);
+    UserDto findByLogin(String login);
 
-    void save(User user);
+    UserDto find(String login, String id);
 
-    void delete(User user);
+    void save(UserDto user);
+
+    void delete(UserDto user);
+
+    void update(UserDto user);
 
     void deleteById(Long id);
 

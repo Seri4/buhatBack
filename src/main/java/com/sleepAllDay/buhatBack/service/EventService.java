@@ -1,5 +1,6 @@
 package com.sleepAllDay.buhatBack.service;
 
+import com.sleepAllDay.buhatBack.dto.EventDto;
 import com.sleepAllDay.buhatBack.models.Event;
 import com.sleepAllDay.buhatBack.models.User;
 
@@ -7,13 +8,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface EventService {
-    List<Event> findAll();
+    List<EventDto> findAll();
 
-    Optional<Event> findById(Long id);
+    EventDto findById(Long id);
 
-    void save(Event event);
+    void save(EventDto event);
 
-    void delete(Event event);
+    void delete(EventDto event);
 
     void deleteById(Long id);
 

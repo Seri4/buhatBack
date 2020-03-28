@@ -1,10 +1,17 @@
 package com.sleepAllDay.buhatBack.models;
 
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "person")
+@Data
+@Builder
 public class User {
 
     @Id
@@ -21,43 +28,5 @@ public class User {
     private double rate;
 
     public User() {
-    }
-
-    public User(String login, String password, double rate) {
-        this.login = login;
-        this.password = password;
-        this.rate = rate;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public double getRate() {
-        return rate;
-    }
-
-    public void setRate(double rate) {
-        this.rate = rate;
     }
 }
