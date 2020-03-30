@@ -13,8 +13,11 @@ import java.util.*;
 @RestController
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/users")
     public ResponseEntity<List<UserDto>> getUsers() {
@@ -30,31 +33,13 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-//    @GetMapping("/users/find/{login}")
-//    public User getUserByLogin(@PathVariable String login) {
-//        return userService.findByLogin(login);
-//    }
-//
-//    @GetMapping("/users/{id}")
-//    public User getUserById(@PathVariable Long id) {
-//        return userService.findById(id).get();
-//    }
-
     @PostMapping("/users/add")
     public void addUser(@RequestBody UserDto user) {
         userService.save(user);
     }
 
-//    @PostMapping("/users/add/{login}/{password}/{rate}")
-//    public void addUser(@PathVariable String login, @PathVariable String password,
-//                        @PathVariable double rate) {
-//        userService.save(new User(login, password, rate));
-//    }
-
     @PutMapping("/users/update/")
-    public void updateLogin(@RequestBody UserDto user) {
-//        User user = userService.findById(id);
-//        user.setLogin(login);
+    public void update(@RequestBody UserDto user) {
         userService.update(user);
     }
 

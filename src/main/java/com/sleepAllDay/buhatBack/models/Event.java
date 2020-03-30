@@ -1,10 +1,7 @@
 package com.sleepAllDay.buhatBack.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,6 +9,8 @@ import java.util.List;
 @Entity
 @Table(name = "event")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Event {
 
@@ -39,7 +38,4 @@ public class Event {
 
     @Column(name = "image_url")
     private String imageUrl;
-
-    public Event() {
-    }
 }

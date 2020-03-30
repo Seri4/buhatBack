@@ -1,15 +1,14 @@
 package com.sleepAllDay.buhatBack.models;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "bar")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Bar {
 
@@ -32,6 +31,4 @@ public class Bar {
     @Column(name = "average_price")
     private Double averagePrice;
 
-    public Bar() {
-    }
 }

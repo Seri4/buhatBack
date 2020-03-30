@@ -1,12 +1,11 @@
 package com.sleepAllDay.buhatBack.dto;
 
 import com.sleepAllDay.buhatBack.models.User;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class UserDto {
 
@@ -15,6 +14,10 @@ public class UserDto {
     private String password;
     private Double rate;
 
-    public UserDto() {
+    public UserDto(User item) {
+        this.id = item.getId();
+        this.login = item.getLogin();
+        this.password = item.getPassword();
+        this.rate = item.getRate();
     }
 }

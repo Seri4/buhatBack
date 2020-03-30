@@ -1,9 +1,6 @@
 package com.sleepAllDay.buhatBack.models;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -11,6 +8,8 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Table(name = "person")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class User {
 
@@ -26,7 +25,4 @@ public class User {
 
     @Column(name = "rate")
     private double rate;
-
-    public User() {
-    }
 }

@@ -1,7 +1,6 @@
 package com.sleepAllDay.buhatBack.service.Impl;
 
 import com.sleepAllDay.buhatBack.dto.UserDto;
-import com.sleepAllDay.buhatBack.mapper.UserMapper;
 import com.sleepAllDay.buhatBack.models.User;
 import com.sleepAllDay.buhatBack.repositories.UserRepository;
 import com.sleepAllDay.buhatBack.service.UserService;
@@ -23,29 +22,29 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDto> findAll() {
         return userRepository.findAll().stream()
-                .map(UserMapper.INSTANCE::userToUserDto)
+                .map(UserDto::new)
                 .collect(Collectors.toList());
     }
 
     @Override
     public UserDto findById(Long id) {
         User currentUser = userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        return UserMapper.INSTANCE.userToUserDto(currentUser);
+        return new UserDto(currentUser);
     }
 
     @Override
     public UserDto findByLogin(String login) {
         User currentUser = userRepository.findByLogin(login).orElseThrow(EntityNotFoundException::new);
-        return UserMapper.INSTANCE.userToUserDto(currentUser);
+        return new UserDto(currentUser);
     }
 
     @Override
     public UserDto find(String login, String id) {
         if (!login.equals("") && id.equals("")){
-            return UserMapper.INSTANCE.userToUserDto(userRepository.findByLogin(login).orElseThrow(EntityNotFoundException::new));
+            return new UserDto(userRepository.findByLogin(login).orElseThrow(EntityNotFoundException::new));
         }
         if (login.equals("") && !id.equals("")) {
-            return UserMapper.INSTANCE.userToUserDto(userRepository.findById(Long.parseLong(id)).orElseThrow(EntityNotFoundException::new));
+            return new UserDto(userRepository.findById(Long.parseLong(id)).orElseThrow(EntityNotFoundException::new));
         }
         return null;
     }
@@ -74,10 +73,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void update(UserDto userDto) {
-        User user = userRepository.findById(userDto.getId()).orElseThrow(EntityNotFoundException::new);
-        user.setLogin(userDto.getLogin());
-        user.setPassword(userDto.getPassword());
-        user.setRate(userDto.getRate());
+        User user = User.builder()
+                .id(userDto.getId())
+                .login(userDto.getLogin())
+                .password(userDto.getPassword())
+                .rate(userDto.getRate())
+                .build();
         userRepository.save(user);
     }
 

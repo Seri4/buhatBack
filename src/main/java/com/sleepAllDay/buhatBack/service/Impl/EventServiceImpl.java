@@ -1,7 +1,7 @@
 package com.sleepAllDay.buhatBack.service.Impl;
 
 import com.sleepAllDay.buhatBack.dto.EventDto;
-import com.sleepAllDay.buhatBack.mapper.EventMapper;
+import com.sleepAllDay.buhatBack.dto.UserDto;
 import com.sleepAllDay.buhatBack.models.Bar;
 import com.sleepAllDay.buhatBack.models.Event;
 import com.sleepAllDay.buhatBack.models.User;
@@ -28,14 +28,14 @@ public class EventServiceImpl implements EventService {
     @Override
     public List<EventDto> findAll() {
         return eventRepository.findAll().stream()
-                .map(EventMapper.INSTANCE::mapEventToEventDto)
+                .map(EventDto::new)
                 .collect(Collectors.toList());
     }
 
     @Override
     public EventDto findById(Long id) {
         Event event = eventRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        return EventMapper.INSTANCE.mapEventToEventDto(event);
+        return new EventDto(event);
     }
 
     @Override
@@ -93,14 +93,14 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public void deleteById(Long id){
-        eventRepository.deleteById(id);
-    }
-
-    @Override
-    public void addParticipant(Long id, Long userId) {
+    public void addParticipant(Long id, UserDto userDto) {
         Event event = eventRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        User user = userRepository.findById(userId).orElseThrow(EntityNotFoundException::new);
+        User user = User.builder()
+                .id(userDto.getId())
+                .login(userDto.getLogin())
+                .password(userDto.getPassword())
+                .rate(userDto.getRate())
+                .build();
         List<User> participants = event.getParticipant();
         participants.add(user);
         event.setParticipant(participants);
@@ -108,9 +108,14 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public void deleteParticipant(Long id, Long userId) {
+    public void deleteParticipant(Long id, UserDto userDto) {
         Event event = eventRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        User user = userRepository.findById(userId).orElseThrow(EntityNotFoundException::new);
+        User user = User.builder()
+                .id(userDto.getId())
+                .login(userDto.getLogin())
+                .password(userDto.getPassword())
+                .rate(userDto.getRate())
+                .build();
         List<User> participants = event.getParticipant();
         participants.remove(user);
         eventRepository.save(event);

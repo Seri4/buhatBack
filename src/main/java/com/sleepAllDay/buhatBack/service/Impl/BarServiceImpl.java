@@ -1,7 +1,6 @@
 package com.sleepAllDay.buhatBack.service.Impl;
 
 import com.sleepAllDay.buhatBack.dto.BarDto;
-import com.sleepAllDay.buhatBack.mapper.BarMapper;
 import com.sleepAllDay.buhatBack.models.Bar;
 import com.sleepAllDay.buhatBack.repositories.BarRepository;
 import com.sleepAllDay.buhatBack.service.BarService;
@@ -22,14 +21,14 @@ public class BarServiceImpl implements BarService {
     @Override
     public List<BarDto> findAll() {
         return barRepository.findAll().stream()
-                .map(BarMapper.INSTANCE::mapBarToBarDto)
+                .map(BarDto::new)
                 .collect(Collectors.toList());
     }
 
     @Override
     public BarDto findById(Long id) {
         Bar currentBar = barRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        return BarMapper.INSTANCE.mapBarToBarDto(currentBar);
+        return new BarDto(currentBar);
     }
 
     @Override

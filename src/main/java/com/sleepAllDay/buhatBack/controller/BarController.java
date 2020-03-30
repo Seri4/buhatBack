@@ -1,56 +1,53 @@
-//package com.sleepAllDay.buhatBack.controller;
-//
-//import com.sleepAllDay.buhatBack.dto.BarDto;
-//import com.sleepAllDay.buhatBack.models.Bar;
-//import com.sleepAllDay.buhatBack.service.BarService;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.MediaType;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.*;
-//
-//import java.util.List;
-//import java.util.Optional;
-//
-//@RestController
-//public class BarController {
-//
-//    @Autowired
-//    private BarService barService;
-//
-//    @GetMapping("/bars")
-//    public List<BarDto> getBars() {
-//        return barService.findAll();
-//    }
-//
-//    @GetMapping("/bars/{id}")
-//    public BarDto getBarById(@PathVariable Long id) {
-//        return barService.findById(id);
-//    }
-//
-//    @GetMapping("/bars/delete/{id}")
-//    public List<BarDto> deleteBar(@PathVariable Long id) {
-//        barService.deleteById(id);
-//        return barService.findAll();
-//    }
-//
-//    @PostMapping("/bars/add/{address}/{description}/{image_url}/{name}")
-//    public void addBar(@PathVariable String address, @PathVariable String description,
-//                      @PathVariable String image_url, @PathVariable String name) {
-//        return barService.save(new Bar(name, description, address, image_url));
-//    }
-//
-//    @PutMapping("/bars/update/{id}/{address}/{description}/{image_url}/{name}")
-//    public void updateBar(@PathVariable Long id, @PathVariable String address,
-//                          @PathVariable String description, @PathVariable String image_url,
-//                          @PathVariable String name) {
-//        Bar bar = barService.findById(id);
-//
-//        bar.setName(name);
-//        bar.setImageUrl(image_url);
-//        bar.setDescription(description);
-//        bar.setAddress(address);
-//
-//        barService.save(bar);
-//    }
-//}
+package com.sleepAllDay.buhatBack.controller;
+
+import com.sleepAllDay.buhatBack.dto.BarDto;
+import com.sleepAllDay.buhatBack.models.Bar;
+import com.sleepAllDay.buhatBack.service.BarService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
+@RestController
+public class BarController {
+
+    private final BarService barService;
+
+    public BarController(BarService barService) {
+        this.barService = barService;
+    }
+
+    @GetMapping("/bars")
+    public ResponseEntity<List<BarDto>> getBars() {
+        return new ResponseEntity<List<BarDto>>(barService.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/bar")
+    public ResponseEntity<BarDto> getBarById(@RequestParam("id") Long id) {
+        if (Objects.nonNull(id)) {
+            return new ResponseEntity<BarDto>(barService.findById(id), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @PostMapping("/bars/add")
+    public void addBar(@RequestBody BarDto barDto) {
+        barService.save(barDto);
+    }
+
+    @PutMapping("/bars/update")
+    public void updateBar(@RequestBody BarDto barDto) {
+        barService.save(barDto);
+    }
+
+    @DeleteMapping("/bars/delete")
+    public void delete(@RequestBody BarDto barDto) {
+        barService.delete(barDto);
+    }
+
+}

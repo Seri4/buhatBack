@@ -1,6 +1,7 @@
 package com.sleepAllDay.buhatBack.service;
 
 import com.sleepAllDay.buhatBack.dto.EventDto;
+import com.sleepAllDay.buhatBack.dto.UserDto;
 import com.sleepAllDay.buhatBack.models.Event;
 import com.sleepAllDay.buhatBack.models.User;
 
@@ -16,10 +17,8 @@ public interface EventService {
 
     void delete(EventDto event);
 
-    void deleteById(Long id);
+    void addParticipant(Long id, UserDto user);
 
-    void addParticipant(Long id, Long userId);
-
-    void deleteParticipant(Long id, Long userId);
+    void deleteParticipant(Long id, UserDto userDto);
 }
 

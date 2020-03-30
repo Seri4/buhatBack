@@ -1,12 +1,11 @@
 package com.sleepAllDay.buhatBack.dto;
 
 import com.sleepAllDay.buhatBack.models.Bar;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class BarDto {
     private Long id;
@@ -16,6 +15,12 @@ public class BarDto {
     private String imageUrl;
     private Double averagePrice;
 
-    public BarDto() {
+    public BarDto(Bar item) {
+        this.id = item.getId();
+        this.name = item.getName();
+        this.description = item.getDescription();
+        this.address = item.getAddress();
+        this.imageUrl = item.getImageUrl();
+        this.averagePrice = item.getAveragePrice();
     }
 }

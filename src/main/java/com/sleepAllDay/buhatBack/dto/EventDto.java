@@ -1,12 +1,11 @@
 package com.sleepAllDay.buhatBack.dto;
 
 import com.sleepAllDay.buhatBack.models.Event;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class EventDto {
     private Long id;
@@ -17,6 +16,13 @@ public class EventDto {
     private UserDto creator; //создатель эвента
     private String imageUrl;
 
-    public EventDto() {
+    public EventDto(Event item) {
+        this.id = item.getId();
+        this.name = item.getName();
+        this.bar = new BarDto(item.getBar());
+        this.countPeople = (long) item.getParticipant().size();
+        this.description = item.getDescription();
+        this.creator = new UserDto(item.getCreator());
+        this.imageUrl = item.getImageUrl();
     }
 }

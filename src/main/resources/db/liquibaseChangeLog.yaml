@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - preConditions:
+      - runningAs:
+          username: postgres
+  - include:
+      file: db/changeLog/create.sql
+      relativeToChangeLogFile: true
+#  - include:
+#      file: /changeLog/insert.sql
+#      relativeToChangeLogFile: true
